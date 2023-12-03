@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class AviaSouls {
 
     private Ticket[] tickets = new Ticket[0];
@@ -27,6 +29,7 @@ public class AviaSouls {
     }
 
     public Ticket[] findAll() {
+        Arrays.sort(tickets);
         return tickets;
     }
 
@@ -45,6 +48,21 @@ public class AviaSouls {
                 }
             }
         }
+        Arrays.sort(result);
+        return result;
+    }
+
+    public Ticket[] searchAndSortBy(String from, String to) {
+        TicketTimeComparator titico = new TicketTimeComparator();
+        Ticket[] result = new Ticket[0]; // массив для ответа
+        for (Ticket ticket : tickets) { // перебираем все билеты
+            if (ticket.getFrom().equals(from)) { // совпадает аэропорт вылета
+                if (ticket.getTo().equals(to)) { // совпадает аэропорт прилёта
+                    result = addToArray(result, ticket); // добавляем его в массив ответа
+                }
+            }
+        }
+        Arrays.sort(result, titico);
         return result;
     }
 }
