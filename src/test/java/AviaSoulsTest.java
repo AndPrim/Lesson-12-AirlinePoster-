@@ -146,4 +146,51 @@ class TicketTest {
         Assertions.assertArrayEquals(expected, actual);
     }
 
+    @Test
+    void comparatorToPriceCheck() {
+        service.add(ticket1);
+        service.add(ticket2);
+        service.add(ticket3);
+        service.add(ticket4);
+        service.add(ticket5);
+        service.add(ticket6);
+        service.add(ticket7);
+        service.add(ticket8);
+
+        TicketTimeComparator comparator = new TicketTimeComparator();
+        Ticket[] expected = {ticket8, ticket2, ticket7, ticket6};
+        Ticket[] actual = service.searchAndSortByOne("Челябинск", "Москва", comparator);
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    void comparatorToPriceCheckOne() {
+        service.add(ticket1);
+        service.add(ticket2);
+        service.add(ticket3);
+        service.add(ticket4);
+        service.add(ticket5);
+
+
+        TicketTimeComparator comparator = new TicketTimeComparator();
+        Ticket[] expected = {ticket2};
+        Ticket[] actual = service.searchAndSortByOne("Челябинск", "Москва", comparator);
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    void comparatorToPriceCheckNow() {
+        service.add(ticket1);
+        service.add(ticket5);
+        service.add(ticket3);
+        service.add(ticket4);
+        service.add(ticket5);
+
+
+        TicketTimeComparator comparator = new TicketTimeComparator();
+        Ticket[] expected = {};
+        Ticket[] actual = service.searchAndSortByOne("Челябинск", "Москва", comparator);
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
 }
